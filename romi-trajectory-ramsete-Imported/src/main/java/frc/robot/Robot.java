@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.dacubeking.AutoBuilder.robot.annotations.AutoBuilderAccessible;
+import com.dacubeking.AutoBuilder.robot.robotinterface.AutonomousContainer;
+import com.dacubeking.AutoBuilder.robot.robotinterface.CommandTranslator;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -16,8 +19,10 @@ import frc.robot.subsystems.Drivetrain;
  * project.
  */
 public class Robot extends TimedRobot {
+  @AutoBuilderAccessible
   private Command m_autonomousCommand;
-  private RobotContainer m_robotContainer;
+
+  private RobotContainer m_robotContainer; //TODO: change 
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -28,6 +33,17 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    Drivetrain drive = new Drivetrain();
+    AutonomousContainer.getInstance().initialize(false, 
+    new CommandTranslator(
+        null, 
+        null, 
+        null, 
+        null, 
+        null, 
+        null, 
+        isAutonomous()), 
+    false, this);
   }
 
   /**
