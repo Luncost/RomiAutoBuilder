@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2023.1.1"
+    id "edu.wpi.first.GradleRIO" version "2023.2.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -16,7 +16,7 @@ def includeDesktopSupport = true
 repositories{
     mavenCentral()
     maven{
-        url "https://maven.dacubeking.com/#/releases/"
+        url "https://maven.dacubeking.com/releases/"
     }
 }
 dependencies {
