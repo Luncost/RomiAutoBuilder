@@ -22,7 +22,7 @@ public class Robot extends TimedRobot {
   @AutoBuilderAccessible
   private Command m_autonomousCommand;
 
-  private RobotContainer m_robotContainer; //TODO: change 
+  private RobotContainer m_robotContainer; //TODO: Figure out what values go into the AutonomousContainer method and how to create the different methods shown in other team's code
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -33,18 +33,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    Drivetrain drive = new Drivetrain();
-    AutonomousContainer.getInstance().initialize(false, 
-    new CommandTranslator(
-        null, 
-        null, 
-        null, 
-        null, 
-        null, 
-        null, 
-        isAutonomous()), 
-    false, this);
-  }
+    
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -110,4 +99,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+  
+  
+  }
 }
+

@@ -83,8 +83,8 @@ public class RobotContainer {
     var autoVoltageConstraint =
         new DifferentialDriveVoltageConstraint(
             new SimpleMotorFeedforward(DriveConstants.ksVolts, 
-                                       DriveConstants.kvVoltSecondsPerMeter, 
-                                       DriveConstants.kaVoltSecondsSquaredPerMeter),
+            DriveConstants.kvVoltSecondsPerMeter, 
+            DriveConstants.kaVoltSecondsSquaredPerMeter),
             DriveConstants.kDriveKinematics,
             10);
 
@@ -99,7 +99,7 @@ public class RobotContainer {
     // If you would like to specify coordinates in inches (which might be easier
     // to deal with for the Romi), you can use the Units.inchesToMeters() method
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-        // Start at the origin facing the +X direction
+        // Start at the origin facing the +Xy direction
         new Pose2d(0, 0, new Rotation2d(90)),
         List.of(
             new Translation2d(0, 1)

@@ -6,11 +6,19 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import org.jetbrains.annotations.NotNull;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.sensors.RomiGyro;
@@ -44,6 +52,20 @@ public class Drivetrain extends SubsystemBase {
 
   // Also show a field diagram
   private final Field2d m_field2d = new Field2d();
+
+  private Trajectory currentAutoTrajectory;
+  final Lock currentAutoTrajectoryLock = new ReentrantLock();
+  driveState = DriveState.TELEOP;
+
+  // setting drive state imported from AutoBuilder code
+  public synchronized void setDriveState(@NotNull DriveState driveState){
+    this.driveState = driveState;
+  }
+
+  // added from AutoBuilder code.
+  public enum DriveState {
+    TELEOP, TURN, HOLD, DONE, RAMSETE, STOP
+}
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
@@ -219,4 +241,14 @@ public class Drivetrain extends SubsystemBase {
   public double getTurnRate() {
     return -m_gyro.getRate();
   }
+  public void setAutoPath(Trajectory trajectory) {
+    currentAutoTrajectoryLock.lock();
+    try {
+        setDriveState(DriveState.RAMSETE);
+        this.currentAutoTrajectory = trajectory;
+        double autoStartTime = Timer.getFPGATimestamp();
+    } finally {
+        currentAutoTrajectoryLock.unlock();
+    }
+}
 }
